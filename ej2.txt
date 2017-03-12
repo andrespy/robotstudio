@@ -1,0 +1,63 @@
+MODULE MainModule
+	PERS tooldata sierra :=[TRUE , [200, 0 , 55], [0.707 , 0 , 0.707, 0] , [3.0, [0 , 0, 55], [1 , 0 , 0, 0] , 0 ,0 ,0]];
+
+	PERS wobjdata objetotrabajo := [FALSE, TRUE , " " , [[500 , 400, 180], [0.707, 0.707,0,0]], [[200, 50, 0], [[0.707, 0.707,0,0]]];
+
+
+	CONST robtarget preposo := [200 , 200 , 600] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	!PRIMER CORTE
+
+	CONST robtarget p1 := [ 0, 50 , -10] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p2 := [ 0, 50 , 50] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p3 := [ 200, 50 , 50] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p4 := [ 200, 50 , -10] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	!SEGUNDO CORTE
+
+	CONST robtarget p5 := [ 0, 350 , -10] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p6 := [ 0, 350 , 50] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p7 := [ 200, 350 , 50] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+	CONST robtarget p8 := [ 200, 350 , -10] , [0,0,1,0] , [0,0,0,0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+
+
+
+	PROC cortar50()
+		MoveJ p1, v500, fine , sierra\WObj := objetotrabajo;
+		Set do16;
+		MoveL p2, v5, fine  , sierra\WObj := objeto trabajo;
+		MoveL p3, v5, fine	, sierra\WObj := objeto trabajo;
+		MoveL p4, v5 , fine , sierra\WObj := objeto trabajo;
+		MoveJ p5, v500, z50 , sierra\WObj := objeto trabajo;
+		MoveL p7, v5, fine, sierra\WObj := objeto trabajo;
+		MoveL p8, v5, fine, sierra\WObj := objeto trabajo;
+		Reset do16;
+	ENDPROC
+
+	PROC main ()
+		ConfJ\Off;
+		ConfL\Off;
+		MoveJ presposo, v250, fine , sierra;
+		SET do1;
+		WHILE TRUE DO
+			WaitDI di2, high;
+			reset do1;
+			IF DINPUT(di1) = 0 THEN
+				cortar50;
+			ELSE
+				cortar100;
+			ENDIF;
+			MoveJ preposo, v250, fine, sierra;
+			SET do1
+		ENDWHILE;
+		ConfJ\On;
+		ConfL\On;
+	ENDPROC;
+		
+
